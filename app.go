@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"math"
 	"reflect"
-	"strings"
 	"strconv"
-	"log"
+	"strings"
 )
 
 func parser() (bool, error) {
@@ -30,6 +30,25 @@ func divide(numerator float64, denominator float64) (float64, error) {
 		return 0, fmt.Errorf("Denominator cannot be zero bitch!")
 	}
 	return numerator / denominator, nil
+}
+
+func sum(x, y int) func(w int, z int) int {
+	return func(w int, z int) int {
+		return x + y + w + z
+	}
+}
+
+func addTo(base int, vals... int) []int {
+	out := make([]int, 0, len(vals))
+	fmt.Printf("len of OUT:  %d, cap of OUT: %d\n", len(out), cap(out))
+	for _, v := range vals{
+		out = append(out, base + v)
+	}
+	return out
+}
+
+func add(a, b int) int {
+	return a + b
 }
 
 func main() {
@@ -82,5 +101,19 @@ func main() {
 	primes = append(primes, 4)
 	primes = append(primes, 5)
 	fmt.Println(primes)
+
+	fmt.Println("Higher Order")
+	fmt.Println(sum(5, 7)(6, 8))
+	a := sum(3,3)
+	fmt.Println(a(3,3))
+
+	fmt.Println("variadic input parameters")
+	fmt.Println(addTo(2, 2, 3))
+
+	type opFuncType func(int, int) int
+	var opMap = map[string]opFuncType {
+		"+": add,
+	}
+	fmt.Println(opMap["+"](1, 2))
 
 }
