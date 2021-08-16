@@ -31,11 +31,6 @@ func (it *IntTree) Contains(val int) bool {
 		return it.right.Contains(val)
 	}
 	return true
-	//switch {
-	//case it == nil:
-	//	return false
-	//case val < it.
-	//}
 }
 
 func main() {
